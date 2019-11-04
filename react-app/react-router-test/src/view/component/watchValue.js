@@ -7,9 +7,11 @@ class WatchValueChange extends React.Component {
         this.state = {
             value: 0
         }
+        console.log(this.props,'props..........');
         this.onIncreaseClicks = this.onIncreaseClicks.bind(this);
         this.onDecreaseClicks = this.onDecreaseClicks.bind(this);
     }
+    //自定义事件
     onIncreaseClicks() {
         // this.value  = this.value+1;
         this.setState( {value: this.state.value + 1 })
@@ -21,15 +23,16 @@ class WatchValueChange extends React.Component {
         this.props.bindHandleClick(this.props.preValue - 1)
         console.log(this.state.value,'减一')
     }
+    //react 提供钩子函数
     componentDidMount(){
         this.props.onRef(this)
     }
-    componentDidUpdate(prevProps,prevState) {
+    componentWillReceiveProps(nextProps) { //监听父组件的props变化
+        console.log(nextProps,'nextProps.........');
+    }
+    componentDidUpdate(prevProps,prevState) { //监听父组件props变化，监听state变化
         console.log(prevProps,'prevProps.............')
         console.log(prevState,'prevState.............')
-    }
-    componentWillReceiveProps(nextProps) {
-        console.log(nextProps,'nextProps.........');
     }
     render() {
         return (

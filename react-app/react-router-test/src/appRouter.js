@@ -2,6 +2,7 @@ import React from 'react';
 import {BrowserRouter,Switch,Route,Link,Redirect} from 'react-router-dom';
 import store from './store';
 import Home from './view/home'
+import User1 from './view/user'
 
 
 const Qibingying = ()=> {
@@ -23,7 +24,7 @@ const Users= ({match}) => {
 		</ul>
 		<Route path={`${match.url}/`} exact component={User}></Route>
 		<Route path={`${match.url}/user1`} component={User}></Route>
-		<Route path={`${match.url}/user2`} render= {() => <h3>{match.url}user2测试一下</h3>}></Route>
+		<Route path={`${match.url}/user2`} component={User1}></Route>
 		<Route path={`${match.url}/user3`} render= {() => <h3>user3</h3>}></Route>
 	</div>
 }

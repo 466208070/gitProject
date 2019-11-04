@@ -10,13 +10,14 @@ class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            preValue: 0
+            preValue: 0,
+            input_Value: 0,
+            props: this.props
         }
+        console.log(this.props,'xxxxxxxxx')
         // this.child = {};
     }
-    componentDidMount () {
-        console.log(this.props,'home........');
-    }
+    //自定义事件
     bindHandleClick(preValue) {
         this.setState({preValue})
     }
@@ -31,12 +32,37 @@ class Home extends React.Component {
     fonDecreaseClick = () =>{
         this.child.onDecreaseClicks()
     }
+    changeInput (val) {
+        this.setState({input_Value: val.target.value})
+    }
+    //生命周期钩子函数
+    componentDidMount () {
+        // debugger;
+        console.log(this.props.router,'home........');
+        // this.props.router.setRouteLeaveHook(
+        //     this.props.route,
+        //     this.routerWillLeave
+        // )
+    }
+    routerWillLeave (nextLocation) {
+        // debugger;
+        this.props.router.replace('...path')
+    }
+    componentWillReceiveProps() {
+        console.log(this.props,'props........1')
+        // debugger;
+        this.props.history.listen( route => {
+            console.log(route,'xxxxxxxxx');
+        })
+    }   
     render() {
         let { value,onIncreaseClick,onDecreaseClick} = this.props;
         return (
             // 计数器
             // 组件引用的时候需要把子组件需要的值传入进去，不然没法使用
             <div>
+                <div className="c1 c2"></div>
+                <input value={this.state.input_Value} type="text" onChange={this.changeInput.bind(this)}/> <span>{this.state.input_Value}</span>
                 <label className="title">计数器</label>
                 <div className="content">
                     <Count {...this.props}/>
@@ -50,6 +76,7 @@ class Home extends React.Component {
                     </div>
                     {/* */}
                     <WatchValueChange {...this.state}  bindHandleClick={this.bindHandleClick.bind(this)}  onRef={this.onRef}/>
+
                 </div>
             </div>
         )
